@@ -35,9 +35,12 @@ function renderCanvasContainer() {
 
 //core drawing function	
 function drawPlot(i,pointsHolder){
-	var xFrom = config.width*((pointsHolder.points[i].x-config.axisX.min)/(config.axisX.max-config.axisX.min));
+	var xStartAbsValue = pointsHolder.points[i].x-config.axisX.min;
+	var xEndAbsValue = pointsHolder.points[i+1].x-config.axisX.min;
+	var xVisibleLength = config.axisX.max-config.axisX.min
+	var xFrom = config.width*(xStartAbsValue/xVisibleLength);
 	var yFrom = config.height -  config.height*(pointsHolder.points[i].y/config.axisY.max);
-	var xTo = config.width*((pointsHolder.points[i+1].x-config.axisX.min)/(config.axisX.max-config.axisX.min));
+	var xTo = config.width*(xEndAbsValue/xVisibleLength);
 	var yTo = config.height - config.height*(pointsHolder.points[i+1].y/config.axisY.max);
 	ctx.beginPath();
 	ctx.lineTo(xFrom,yFrom+20);
