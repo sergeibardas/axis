@@ -1,8 +1,10 @@
 var Chart = function(container,config) {
+
+	var globalCorrection = 20;
 	renderCanvasContainer();
 	
 	this.ctx = document.getElementById('canvo').getContext('2d');
-	config.height = config.height -20;
+	config.height = config.height - globalCorrection;
 	
 	var pointsHolder = config.data[0];
 	var pointsNumber = pointsHolder.points.length;
@@ -10,7 +12,6 @@ var Chart = function(container,config) {
 	
 	drawAxisX();
 	drawAxisY();
-	drawHorizontalDashedLines();
 
 	for (var i = 0;i < pointsNumber;i++) {
 		if (i < pointsNumber - 1){
@@ -60,7 +61,7 @@ function drawAxisX(){
 				
 				//small dashes
 				ctx.beginPath();
-				ctx.lineTo((config.width/(size-1))*y,config.height - 20);
+				ctx.lineTo((config.width/(size-1))*y,config.height - globalCorrection);
 				ctx.lineTo((config.width/(size-1))*y,config.height - 30);
 				ctx.strokeStyle = "ccc";
 				ctx.lineWidth = 1.5;
@@ -68,9 +69,8 @@ function drawAxisX(){
 				ctx.closePath();
 		}
 		ctx.beginPath();
-		//ctx.lineTo(100,config.height - 20);
-		ctx.lineTo(0,config.height - 20);
-		ctx.lineTo(config.width,config.height - 20);
+		ctx.lineTo(0,config.height - globalCorrection);
+		ctx.lineTo(config.width,config.height - globalCorrection);
 		ctx.strokeStyle = "ccc";
 		ctx.lineWidth = 1.5;
 		ctx.stroke();
@@ -94,7 +94,7 @@ function drawHorizontalDashedLines(){
 			ctx.fillStyle = "0baee5";
 			ctx.font = "18px verdana";
 			ctx.fillText(m+1,0,config.height-(config.height/3)*(m+1)+25);
-			ctx.dashedLine(0,config.height-(config.height/3)*(m+1)+20,config.width,config.height-(config.height/3)*(m+1)+20,[1,1]);
+			ctx.dashedLine(0,config.height-(config.height/3)*(m+1)+globalCorrection,config.width,config.height-(config.height/3)*(m+1)+globalCorrection,[1,1]);
 			ctx.closePath();
 			ctx.stroke();
 	}
@@ -102,25 +102,25 @@ function drawHorizontalDashedLines(){
 
 function drawVerticalDashedLines(i,x1,y1,pointsHolder,marginAxisX){
 		ctx.beginPath();
-		ctx.dashedLine(x1,y1,x1,config.height-20,[1,1]);
+		ctx.dashedLine(x1,y1,x1,config.height-globalCorrection,[1,1]);
 		ctx.strokeStyle = 'cccccc';
 		ctx.lineWidth = 2;
 		ctx.stroke();
 		ctx.fillStyle = "#000";
 		ctx.font = "18px verdana bold";
-		ctx.fillText(pointsHolder.points[i].x,x1 - 20,config.height - 40);
+		ctx.fillText(pointsHolder.points[i].x,x1 - globalCorrection,config.height - 40);
 		ctx.closePath();
 };
 
 function drawCirclePoint(i,x1,y1,pointsHolder,marginAxisX){
 		ctx.fillStyle = pointsHolder.color;
 		ctx.beginPath();
-		ctx.arc(x1,y1+20,9,0,Math.PI*2,true);
+		ctx.arc(x1,y1+globalCorrection,9,0,Math.PI*2,true);
 		ctx.fill();
 		ctx.closePath();
 		ctx.fillStyle = "fff";
 		ctx.beginPath();
-		ctx.arc(x1,y1+20,6,0,Math.PI*2,true);
+		ctx.arc(x1,y1+globalCorrection,6,0,Math.PI*2,true);
 		ctx.fill();
 		ctx.closePath();
 };
@@ -130,32 +130,32 @@ function drawTooltip(i,x1,y1,pointsHolder,marginAxisX){
 		var tooltipHeight = 50;
 		var borderSize = 2;
 		ctx.fillStyle = pointsHolder.color;
-		ctx.fillRect(x1 -tooltipWidth/2,y1-86+20,tooltipWidth,tooltipHeight);
+		ctx.fillRect(x1 -tooltipWidth/2,y1-86+globalCorrection,tooltipWidth,tooltipHeight);
 		ctx.fillStyle = "fff";
-		ctx.fillRect(x1 - tooltipWidth/2 + borderSize,y1-82+20,tooltipWidth-borderSize*2,tooltipHeight-borderSize*2);
+		ctx.fillRect(x1 - tooltipWidth/2 + borderSize,y1-82+globalCorrection,tooltipWidth-borderSize*2,tooltipHeight-borderSize*2);
 		
 		//labels
 		ctx.fillStyle = "#000";
 		ctx.font = "22px verdana bold";
-		ctx.fillText(pointsHolder.points[i].y,x1-10-borderSize*2,y1-60+20);
+		ctx.fillText(pointsHolder.points[i].y,x1-10-borderSize*2,y1-60+globalCorrection);
 		ctx.font = "14px verdana";
-		ctx.fillText(pointsHolder.points[i].percent + '%',x1-10-borderSize*2,y1-30+20);
+		ctx.fillText(pointsHolder.points[i].percent + '%',x1-10-borderSize*2,y1-30+globalCorrection);
 		
 		//triangle
 		ctx.beginPath();  
-		ctx.lineTo(x1 + tooltipWidth/2 - borderSize,y1-36+20);  
-		ctx.lineTo(x1,y1-16+20);  
+		ctx.lineTo(x1 + tooltipWidth/2 - borderSize,y1-36+globalCorrection);  
+		ctx.lineTo(x1,y1-16+globalCorrection);  
 		ctx.strokeStyle = pointsHolder.color;
 		ctx.lineWidth = 2;
 		ctx.closePath();  
 		ctx.stroke();  
 		
 		ctx.beginPath();  
-		ctx.lineTo(x1,y1-16+20);  
-		ctx.lineTo(x1-tooltipWidth/2,y1-36+20);  
+		ctx.lineTo(x1,y1-16+globalCorrection);  
+		ctx.lineTo(x1-tooltipWidth/2,y1-36+globalCorrection);  
 		ctx.strokeStyle = pointsHolder.color;
 		ctx.lineWidth = 2;
 		ctx.closePath();  
 		ctx.stroke();  
-}
+	};
 }
