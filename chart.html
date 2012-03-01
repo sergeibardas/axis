@@ -1,0 +1,121 @@
+﻿<head>
+
+<style>
+	.menu-container{
+		float:left;
+		font-family:verdana;
+		font-size:18px;
+		color:#0baee5;
+		margin-right:100px;
+	}
+	a:hover{
+		border-bottom: 2px #0baee5 dotted;
+	}
+	a{
+		text-decoration:none;
+		color:#0baee5;
+	}
+</style>
+
+	<script src='dash.js'></script>
+	<script src='chart.js'></script>	
+	<script src='jquery-1.7.1.js'></script>
+	
+	<script>
+		window.onload = function(){
+		$('#prof').click(function(){
+			config = {
+				width:800,
+				height:800,
+				axisX: {
+					max:50,
+					points:[15, 20, 25, 30, 35, 40, 45, 50],
+					min:15
+				},
+				axisY: {
+					max:3,
+					min:0
+				},
+				data: [
+						{
+							color:'5cd500',
+							points: [
+										 {x: 18, y: 1.2,  percent:42}, 
+										 {x: 28.4, y: 2,  percent:70}, 
+										 {x: 40.4, y: 0.8,  percent:10}, 
+									]
+						}
+				]
+			};
+			Chart('conatiner',config);
+		})
+		
+		
+		$('#soc').click(function(){
+			config = {
+				width:800,
+				height:800,
+				axisX: {
+					max:50,
+					points:[15, 20, 25, 30, 35, 40, 45, 50],
+					min:15
+				},
+				axisY: {
+					max:3,
+					min:0
+				},
+				data: [
+						{
+							color:'rgb(0,150,245)',
+							points: [{x: 28, y: 2.2, percent: 15}]
+						}
+				]
+			};
+			Chart('conatiner',config);
+		})
+		
+		
+		$('#team').click(function(){
+			config = {
+				width:800,
+				height:800,
+				axisX: {
+					max:50,
+					points:[15, 20, 25, 30, 35, 40, 45, 50],
+					min:15
+				},
+				axisY: {
+					max:3,
+					min:0
+				},
+				data: [
+						{
+							color:'rgb(241,220,45)',
+							points: [
+		       			         {x: 19 , y: 0.2, percent: 12}, 
+		       			         {x: 24, y:0.6, percent: 15}, 
+		       			         {x: 28, y:3, percent: 1}
+								 ]
+						}
+				]
+			};
+			Chart('conatiner',config);
+		})
+		
+		
+		}
+
+	</script>
+
+</head>
+
+
+<div>
+	<div id='menu' class="menu-container">
+		<a id="prof" href="#" style="menu-item">Профессиональный рост</a><br/>
+		<a id="soc" href="#" style="menu-item">Соцпакет</a><br/>
+		<a id="team" href="#" style="menu-item">Команда</a><br/>
+	</div>
+	<div id='container' style="float:left;">
+	</div>
+</div>
